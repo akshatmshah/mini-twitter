@@ -13,17 +13,23 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/")
+            return redirect("/feed")
     return render(request, 'login.html', {})
 
-def signup(request):
-	user = User.objects.create_user(username=request.POST['username'],
-					email=request.POST['email'],
-					password=request.POST['password'])
-	login(request, user)
-	return redirect('/')
+def signup_(request):
+    if request.method == "POST":
+        user = User.objects.create_user(username=request.POST['username'],
+                        email=request.POST['email'],
+                        password=request.POST['password'])
+        login(request, user)
+        return redirect('/feed')
+    elif request.method == "GET":
+        return render(request, 'signup.html', {})
+
+def feed(request):
+    return render(request, "feed.html", {})
 
 
 def logout_(request):
     logout(request)
-    return redirect("login")    
+    return redirect("/")    
