@@ -1,7 +1,24 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models.fields import CharField, TextField
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Tweet(models.Model):
-    description = TextField();
+    user  = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField()
+    time = models.DateTimeField(auto_now_add=True, null = True)
+
+    class Meta:
+        app_label = "main"
+
+    def __str__(self):
+        return self.description
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', null=True)
+
+    class Meta:
+        app_label = "main"
+
+    def __str__(self):
+        return self.user.username
