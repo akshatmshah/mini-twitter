@@ -6,6 +6,7 @@ from django.utils import timezone
 from .models import Tweet, Profile
 from django.views import generic
 from main.forms import TweetForm
+from taggit.models import Tag
 
 def splash(request):
     return render(request, "home.html", {})
@@ -30,11 +31,6 @@ def signup_(request):
     elif request.method == "GET":
         return render(request, 'signup.html', {})
 
-def get_user_profile(request, username):
-    user = get_object_or_404(User, pk=username)
-    prof = Profile.objects.get_or_create(user=user)
-    return render(request, "profile.html", {"profile": prof})
-
 class Feed(generic.ListView):
     template_name = 'feed.html'
     context_object_name = 'tweets'
@@ -43,12 +39,18 @@ class Feed(generic.ListView):
 
 def create_post(request):
     form = TweetForm
-    if request.method == 'POST':
+    if request.method == 'POST': 
         postf = TweetForm(request.POST)
         if postf.is_valid():
             profile = postf.save(commit=False)
             profile.user = request.user
+            text = request.POST.dict()['description'].split()
             profile.save()
+            for tag in text:
+                if tag.startswith("#"):
+                    newTag = tag.strip("#")
+                    profile.tags.add(newTag)
+            postf.save_m2m()
             return redirect('/feed')
     return render(request, 'post.html', {'form': form})
     
@@ -59,7 +61,9 @@ def get_user_profile(request, username):
     return render(request, "profile.html", {"profile": prof[0], "tweets": tweet})
 
 def get_hashtag(request, hashtag):
-    pass
+    tweet = Tweet.objects.filter(tags__name__in=[hashtag])
+    print(Tag.objects.all())
+    return render(request, "profile.html", {"profile": hashtag,"tweets": tweet})
 
 def logout_(request):
     logout(request)
