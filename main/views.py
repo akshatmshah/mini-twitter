@@ -51,7 +51,15 @@ def create_post(request):
             profile.save()
             return redirect('/feed')
     return render(request, 'post.html', {'form': form})
+    
+def get_user_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    prof = Profile.objects.get_or_create(user=user)
+    tweet = Tweet.objects.filter(user = user)
+    return render(request, "profile.html", {"profile": prof[0], "tweets": tweet})
 
+def get_hashtag(request, hashtag):
+    pass
 
 def logout_(request):
     logout(request)

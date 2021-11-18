@@ -1,0 +1,19 @@
+{% block content %}
+    <div class="profile">
+        <h2>{{ profile }}</h2>
+        {% if tweets %}
+            <ul class="posts">
+            {% for post in tweets %}
+                    <hr>
+                    {% if post.description %}
+                            {{ post.user }}
+                            {{ post.description }}
+                            {{ post.time }}
+                    {% endif %}
+                    <br>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
+    
