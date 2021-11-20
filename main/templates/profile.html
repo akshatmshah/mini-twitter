@@ -1,13 +1,18 @@
+{% load hashtag %}
 {% block content %}
     <div class="profile">
         <h2>{{ profile }}</h2>
+        <a href="/feed">Home</a>
         {% if tweets %}
             <ul class="posts">
             {% for post in tweets %}
                     <hr>
                     {% if post.description %}
-                            {{ post.user }}
-                            {{ post.description }}
+                            {% if request.user == post.user %}
+                                <a href="{% url 'delete' post.id %}">Delete</a>
+                            {% endif %}
+                            <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
+                            {{ post.description | render_content}}
                             {{ post.time }}
                     {% endif %}
                     <br>
