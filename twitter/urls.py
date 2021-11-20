@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import splash, user_login, logout_, signup_, Feed, create_post, get_hashtag, get_user_profile
+from main.views import splash, user_login, logout_, signup_, Feed, create_post, get_hashtag, get_user_profile, delete_post
 
 app_name = 'main'
 
@@ -28,5 +28,6 @@ urlpatterns = [
     path('feed', Feed.as_view(), name='feed'),
     path('feed/<str:hashtag>', get_hashtag, name='hashtag'),
     path('posts', create_post, name = 'posts'),
-    path('<str:username>', get_user_profile, name='profile')
+    path('<str:username>', get_user_profile, name='profile'),
+    path('delete/<post_id>', delete_post, name='delete')
 ]

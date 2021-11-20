@@ -65,6 +65,11 @@ def get_hashtag(request, hashtag):
     print(Tag.objects.all())
     return render(request, "profile.html", {"profile": hashtag,"tweets": tweet})
 
+def delete_post(request, post_id):
+    post = get_object_or_404(Tweet, pk=post_id, user=request.user)
+    post.delete()
+    return redirect("/feed")
+
 def logout_(request):
     logout(request)
     return redirect("/")    

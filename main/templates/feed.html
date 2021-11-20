@@ -7,7 +7,11 @@
             <ul class="posts">
             {% for post in tweets %}
                     <hr>
+                    
                     {% if post.description %}
+                            {% if request.user == post.user %}
+                            <a href="{% url 'delete' post.id %}">Delete</a>
+                            {% endif %}
                             {{ post.user }}
                             {{ post.description | render_content}}
                             {{ post.time }}
