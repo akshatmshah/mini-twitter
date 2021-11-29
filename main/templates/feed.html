@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="css/base.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 {% load hashtag %}
-<h1 class="title">Feed</h1>
-{% block content %}
-    {% if user.is_authenticated %}
-    <a href="/posts">Create a Post</a>
-    <a href="/feed">Home</a>
-        {% if tweets %}
-            <ul class="posts">
-            {% for post in tweets %}
-                    <hr>
-                    {% if post.description %}
-                            {% if request.user == post.user %}
-                                <a href="{% url 'delete' post.id %}">Delete</a>
-                            {% endif %}
-                            <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
-                            {{ post.description | render_content}}
-                            {{ post.time }}
-                    {% endif %}
-                    <br>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p class="no-posts">No posts.</p>
-    {% endif %}
-    {% else %} 
-        <meta http-equiv="REFRESH" content="0;url=./login">
-    {% endif %}
-{% endblock %}
-<a href="/logout">Logout</a>
+<div class="columns">
+    <div class="column">
+        <a style="text-align: center" href="/posts">Create a Post</a>
+    </div>
+    <div class="column">
+        <h1 class="title">Feed</h1>
+        {% block content %}
+        {% if user.is_authenticated %}
+        <a href="/feed">Home</a>
+            {% if tweets %}
+                <ul class="posts">
+                {% for post in tweets %}
+                        <hr>
+                        {% if post.description %}
+                                <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
+                                {{ post.description | render_content}}
+                                {{ post.time }}
+                                {% if request.user == post.user %}
+                                    <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
+                                {% endif %}
+                        {% endif %}
+                        <br>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-posts">No posts.</p>
+        {% endif %}
+        {% else %} 
+            <meta http-equiv="REFRESH" content="0;url=./login">
+        {% endif %}
+    {% endblock %}
+    </div>
+    <div class="column">
+        <a href="/logout">Logout</a>
+    </div>
+  </div>
