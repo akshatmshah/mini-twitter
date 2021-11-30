@@ -8,11 +8,11 @@ you can install dependencies with the following
 pip install .
 ```
 
-```
-
 ## how to run the server: 
+
 ```
 cd twitter
+
 python3 manage.py makemigrations
 
 python3 manage.py migrate
