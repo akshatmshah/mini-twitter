@@ -3,6 +3,11 @@ This README file documents the routes, design considerations made, and collabora
 
 collaborators: Akshat Shah, Yiwei(Ellen) Yan
 ## installation
+clone the repository
+```
+git clone https://github.com/akshatmshah/mini-twitter
+```
+
 you can install dependencies with the following
 ```
 poetry install
