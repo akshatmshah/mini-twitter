@@ -2,8 +2,21 @@
 This README file documents the routes, design considerations made, and collaborators. The file also includes information on how to run the server.
 
 collaborators: Akshat Shah, Yiwei(Ellen) Yan
+## installation
+you can install dependencies with the following
+```
+pip install .
+```
+
+```
+
 ## how to run the server: 
 ```
+cd twitter
+python3 manage.py makemigrations
+
+python3 manage.py migrate
+
 python3 manage.py runserver
 ```
 
