@@ -5,7 +5,7 @@ collaborators: Akshat Shah, Yiwei(Ellen) Yan
 ## installation
 you can install dependencies with the following
 ```
-pip install .
+poetry install
 ```
 
 ## how to run the server: 
