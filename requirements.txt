@@ -1,6 +1,0 @@
-asgiref @ file:///Users/akshatshah/Library/Caches/pypoetry/artifacts/c3/92/1c/3d42ce7ad1e9e2aa1621c3fa8ebc5e21bd880a768bd691fb4f0356baa8/asgiref-3.4.1-py3-none-any.whl
-Django @ file:///Users/akshatshah/Library/Caches/pypoetry/artifacts/68/88/e8/04dd0b7619c91adf7efe1467541f7aced060d2cf19bf26d4bb32bc54fa/Django-3.2.9-py3-none-any.whl
-django-taggit @ file:///Users/akshatshah/Library/Caches/pypoetry/artifacts/4b/6f/e7/00b16558728721aa5630d87f96dac94ebb73464e1838592769ce8bfdfd/django_taggit-2.0.0-py3-none-any.whl
-pytz @ file:///Users/akshatshah/Library/Caches/pypoetry/artifacts/3e/f3/dd/6629bf5ed0a970a128e0a015f2af3b67280e749a56fdaabdaa06d5fc6b/pytz-2021.3-py2.py3-none-any.whl
-sqlparse @ file:///Users/akshatshah/Library/Caches/pypoetry/artifacts/ea/fd/ba/117a876397913faee210ef8bac93829e22ad9232662e656971383c0718/sqlparse-0.4.2-py3-none-any.whl
-twitter==0.1.0
