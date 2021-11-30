@@ -16,6 +16,11 @@
                 {% for post in tweets %}
                         <hr>
                         {% if post.description %}
+                                <form action="{%url 'like_post' post.id %}" method = "POST">
+                                    {% csrf_token %}
+                                    <button type="submit" value = "{{post.id}}" class='button is-small'>Like</button>
+                                </form>
+                                <p>{{post.like.count}}</p>
                                 <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
                                 {{ post.description | render_content}}
                                 {{ post.time }}
