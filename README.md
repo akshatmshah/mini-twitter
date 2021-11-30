@@ -3,9 +3,14 @@ This README file documents the routes, design considerations made, and collabora
 
 collaborators: Akshat Shah, Yiwei(Ellen) Yan
 ## installation
+clone the repository
+```
+git clone https://github.com/akshatmshah/mini-twitter
+```
+
 you can install dependencies with the following
 ```
-pip install .
+poetry install
 ```
 
 ## how to run the server: 
@@ -13,11 +18,11 @@ pip install .
 ```
 cd twitter
 
-python3 manage.py makemigrations
+poetry run python3 manage.py makemigrations
 
-python3 manage.py migrate
+poetry run python3 manage.py migrate
 
-python3 manage.py runserver
+poetry run python3 manage.py runserver
 ```
 
 ## routes:
