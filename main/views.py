@@ -7,6 +7,7 @@ from .models import Tweet, Profile
 from django.views import generic
 from main.forms import TweetForm
 from taggit.models import Tag
+from django.urls import reverse
 
 def splash(request):
     return render(request, "home.html", {})
@@ -37,6 +38,15 @@ class Feed(generic.ListView):
     def get_queryset(self):
         return Tweet.objects.filter(time__lte=timezone.now()).order_by('-time')
 
+def LikeView(request, post_id):
+    post = get_object_or_404(Tweet, pk=post_id)
+    if post.like.filter(id=request.user.id).exists():
+        post.like.remove(request.user)
+    else:
+        post.like.add(request.user)
+    return redirect(reverse('feed'))
+
+
 def create_post(request):
     form = TweetForm
     if request.method == 'POST': 
@@ -62,7 +72,6 @@ def get_user_profile(request, username):
 
 def get_hashtag(request, hashtag):
     tweet = Tweet.objects.filter(tags__name__in=[hashtag])
-    print(Tag.objects.all())
     return render(request, "profile.html", {"profile": hashtag,"tweets": tweet})
 
 def delete_post(request, post_id):

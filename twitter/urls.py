@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import splash, user_login, logout_, signup_, Feed, create_post, get_hashtag, get_user_profile, delete_post
+from main.views import splash, user_login, logout_, signup_, Feed, create_post, get_hashtag, get_user_profile, delete_post, LikeView
 
 app_name = 'main'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
 	path('', splash, name='splash'),
     path('login', user_login, name='login'),
     path('logout', logout_, name='logout'),
@@ -29,5 +29,6 @@ urlpatterns = [
     path('feed/<str:hashtag>', get_hashtag, name='hashtag'),
     path('posts', create_post, name = 'posts'),
     path('<str:username>', get_user_profile, name='profile'),
-    path('delete/<post_id>', delete_post, name='delete')
+    path('delete/<post_id>', delete_post, name='delete'),
+    path('like/<post_id>', LikeView, name='like_post')
 ]
