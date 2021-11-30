@@ -13,11 +13,11 @@ poetry install
 ```
 cd twitter
 
-python3 manage.py makemigrations
+poetry run python3 manage.py makemigrations
 
-python3 manage.py migrate
+poetry run python3 manage.py migrate
 
-python3 manage.py runserver
+poetry run python3 manage.py runserver
 ```
 
 ## routes:
