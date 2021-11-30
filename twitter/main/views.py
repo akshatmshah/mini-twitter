@@ -7,7 +7,7 @@ from .models import Tweet, Profile
 from django.views import generic
 from main.forms import TweetForm
 from taggit.models import Tag
-from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 def splash(request):
     return render(request, "home.html", {})
@@ -44,7 +44,8 @@ def LikeView(request, post_id):
         post.like.remove(request.user)
     else:
         post.like.add(request.user)
-    return redirect(reverse('feed'))
+    next = request.POST.get('next', '/')
+    return redirect(next)
 
 
 def create_post(request):
