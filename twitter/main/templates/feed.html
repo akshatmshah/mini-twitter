@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<script src="https://kit.fontawesome.com/879f759e71.js" crossorigin="anonymous"></script>
 {% load hashtag %}
 <div class="columns">
     <div class="column">
@@ -10,38 +11,49 @@
         <h1 class="title">Feed</h1>
         {% block content %}
         {% if user.is_authenticated %}
+
         <a href="/feed">Home</a>
-            {% if tweets %}
-                <ul class="posts">
-                {% for post in tweets %}
-                        <hr>
-                        {% if post.description %}
-                                <form action="{%url 'like_post' post.id %}" method = "POST">
-                                    {% csrf_token %}
-                                    <p>{{post.like.count}}</p>
-                                    <input type="hidden" name="next" value="{{ request.path }}">
-                                    <button type="submit" value = "{{post.id}}" class='button is-small'>Like</button>
-                                </form>
-                               
-                                <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
-                                {{ post.description | render_content}}
-                                {{ post.time }}
-                                {% if request.user == post.user %}
-                                    <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
-                                {% endif %}
-                        {% endif %}
-                        <br>
-                {% endfor %}
-                </ul>
-            {% else %}
-                <p class="no-posts">No posts.</p>
+        {% if tweets %}
+        <ul class="posts">
+            {% for post in tweets %}
+            <hr>
+            {% if post.description %}
+            <div class="card">
+                <div class="card-content">
+                    <div class="media-content">
+                        <p class="title is-4 mb-3"> <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
+                        </p>
+                    </div>
+                    <div class="content">
+                        {{ post.description | render_content}}
+                    </div>
+                    <time> {{ post.time }}</time>
+                </div>
+                <footer class='card-footer'>
+                    <form action="{%url 'like_post' post.id %}" method = "POST">
+                        {% csrf_token %}
+                        <p>{{post.like.count}}</p>
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button type="submit" value = "{{post.id}}" class='button is-small'>Like</button>
+                    </form>
+                </footer>  
+                {% if request.user == post.user %}
+                <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
+                {% endif %}
+            </div>
+            {% endif %}
+            <br>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-posts">No posts.</p>
         {% endif %}
-        {% else %} 
-            <meta http-equiv="REFRESH" content="0;url=./login">
+        {% else %}
+        <meta http-equiv="REFRESH" content="0;url=./login">
         {% endif %}
-    {% endblock %}
+        {% endblock %}
     </div>
     <div class="column">
         <a href="/logout">Logout</a>
     </div>
-  </div>
+</div>

@@ -17,18 +17,29 @@
                 {% for post in tweets %}
                         <hr>
                         {% if post.description %}
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media-content">
+                                    <p class="title is-4 mb-3"> <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
+                                    </p>
+                                </div>
+                                <div class="content">
+                                    {{ post.description | render_content}}
+                                </div>
+                                <time> {{ post.time }}</time>
+                            </div>
+                            <footer class='card-footer'>
                                 <form action="{%url 'like_post' post.id %}" method = "POST">
                                     {% csrf_token %}
                                     <p>{{post.like.count}}</p>
                                     <input type="hidden" name="next" value="{{ request.path }}">
                                     <button type="submit" value = "{{post.id}}" class='button is-small'>Like</button>
                                 </form>
-                                <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
-                                {{ post.description | render_content}}
-                                {{ post.time }}
-                                {% if request.user == post.user %}
-                                    <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
-                                {% endif %}
+                            </footer>  
+                            {% if request.user == post.user %}
+                            <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
+                            {% endif %}
+                        </div>
                         {% endif %}
                         <br>
                 {% endfor %}
