@@ -28,7 +28,7 @@ urlpatterns = [
     path('feed', Feed.as_view(), name='feed'),
     path('feed/<str:hashtag>', get_hashtag, name='hashtag'),
     path('posts', create_post, name = 'posts'),
-    path('<str:username>', get_user_profile, name='profile'),
+    path('profile/<str:username>', get_user_profile, name='profile'),
     path('delete/<post_id>', delete_post, name='delete'),
     path('like/<post_id>', LikeView, name='like_post')
 ]
