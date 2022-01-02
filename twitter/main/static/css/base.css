@@ -12,3 +12,13 @@
     border-radius: 10px;
 }
 
+.create-post{
+    float: right;
+}
+
+.hidden-button {
+    background: none;
+    padding: 0px;
+    border: none;
+}
+

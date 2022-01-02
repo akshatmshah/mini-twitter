@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="/static/css/base.css">
+
 {% load hashtag %}
 {% block content %}
 
@@ -10,46 +12,47 @@
     </div>
     <div class="column">
         <div class="profile">
-            <h1 class="title">{{ profile }}</h1>
+            <h1 class="mt-2 title">{{ profile }}</h1>
             <a href="/feed">Home</a>
             {% if tweets %}
-                <ul class="posts">
+            <ul class="posts">
                 {% for post in tweets %}
-                        <hr>
-                        {% if post.description %}
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="media-content">
-                                    <p class="title is-4 mb-3"> <a href="{% url 'profile' post.user %}">{{ post.user.username }}</a>
-                                    </p>
-                                </div>
-                                <div class="content">
-                                    {{ post.description | render_content}}
-                                </div>
-                                <time> {{ post.time }}</time>
-                            </div>
-                            <footer class='card-footer'>
-                                <form action="{%url 'like_post' post.id %}" method = "POST">
-                                    {% csrf_token %}
-                                    <p>{{post.like.count}}</p>
-                                    <input type="hidden" name="next" value="{{ request.path }}">
-                                    <button type="submit" value = "{{post.id}}" class='button is-small'>Like</button>
-                                </form>
-                            </footer>  
-                            {% if request.user == post.user %}
-                            <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
-                            {% endif %}
+                <hr>
+                {% if post.description %}
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media-content">
+                            <p class="title is-4 mb-3"> <a href="{% url 'profile' post.user %}">{{ post.user.username}}</a>
+                            </p>
                         </div>
-                        {% endif %}
-                        <br>
+                        <div class="content">
+                            {{ post.description | render_content}}
+                        </div>
+                        <time> {{ post.time }}</time>
+                    </div>
+                    <footer class='card-footer'>
+                        <form action="{%url 'like_post' post.id %}" method="POST">
+                            {% csrf_token %}
+                            <p>{{post.like.count}}</p>
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" value="{{post.id}}" class='button is-small'>Like</button>
+                        </form>
+                    </footer>
+                    {% if request.user == post.user %}
+                    <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <br>
                 {% endfor %}
-                </ul>
+            </ul>
             {% endif %}
         </div>
     </div>
     <div class="column">
-        <a href="/logout">Logout</a>
+        <button class='mt-2 btn button'>
+            <a href="/logout">Logout</a>
+        </button>
     </div>
 </div>
-  {% endblock %}
-    
+{% endblock %}

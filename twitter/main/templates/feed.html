@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="/static/css/base.css">
 <script src="https://kit.fontawesome.com/879f759e71.js" crossorigin="anonymous"></script>
 {% load hashtag %}
 <div class="columns">
     <div class="column">
-        <a style="text-align: center" href="/posts">Create a Post</a>
+        <button class='mt-2 btn button create-post is-flex'>
+            <a href="/posts">Create a Post</a>
+        </button>
     </div>
     <div class="column">
-        <h1 class="title">Feed</h1>
+        <h1 class="mt-2 title">Feed</h1>
         {% block content %}
         {% if user.is_authenticated %}
 
@@ -30,13 +33,16 @@
                     <time> {{ post.time }}</time>
                 </div>
                 <footer class='card-footer'>
-                    <form action="{%url 'like_post' post.id %}" method = "POST">
+                    <form action="{%url 'like_post' post.id %}" method="POST">
                         {% csrf_token %}
-                        <p>{{post.like.count}}</p>
+                       
                         <input type="hidden" name="next" value="{{ request.path }}">
-                        <button type="submit" value = "{{post.id}}" class='button is-small'>Like</button>
+                        <button type="submit" value="{{post.id}}" class='hidden-button is-medium mr-2 ml-1'>
+                            <i class="ml-2 fas fa-heart"></i>
+                        </button>
                     </form>
-                </footer>  
+                    <p>{{post.like.count}}</p>
+                </footer>
                 {% if request.user == post.user %}
                 <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
                 {% endif %}
@@ -54,6 +60,8 @@
         {% endblock %}
     </div>
     <div class="column">
-        <a href="/logout">Logout</a>
+        <button class='mt-2 btn button'>
+            <a href="/logout">Logout</a>
+        </button>
     </div>
 </div>
