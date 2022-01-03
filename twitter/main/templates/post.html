@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="/static/css/base.css">
+
 {% if user.is_authenticated %}
-    <p>{{user}}</p>
-    {% block title %}
-    {% endblock %}
+{% block content %}
 
-    {% block content %}
-        <h1>Create a Post</h1>
+<div class="columns is-centered">
+    <div class="column has-text-centered is-half">
+            <h1 class='title'>Create a Post</h1>
+            <h1 class='subtitle'>{{user}}</h1>
+            <form method="POST" class='post-form'>
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                    <tr>
+                        <td></td>
+                        <td><button class='button btn is-centered' type="submit" name="submit">Post</button></td>
+                    </tr>
+                </table>
+            </form>
+            <button class='mt-2 button btn'><a href="/feed">Home</a></button>
+            <button class='mt-2 button btn'><a href="/logout">Logout</a></button>
+    </div>
+</div>
 
-        <form method="POST">
-            {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-                <tr>
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Post" /></td>
-                </tr>
-             </table>
-        </form>
-    </div>    
-    
-    {% endblock %}
-{% else %}
+
+
+{% endblock %}
 {% endif %}
-<a href="/feed">Home</a>
-<a href="/logout">Logout</a>

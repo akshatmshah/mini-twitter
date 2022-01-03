@@ -22,3 +22,11 @@
     border: none;
 }
 
+.wrapper{
+    text-align: center;
+}
+
+.post-form {  
+        width: 50%;
+        margin-left : 25%
+  }

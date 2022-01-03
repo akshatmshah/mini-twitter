@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 <link rel="stylesheet" href="/static/css/base.css">
+<script src="https://kit.fontawesome.com/879f759e71.js" crossorigin="anonymous"></script>
 
 {% load hashtag %}
 {% block content %}
@@ -13,7 +14,7 @@
     <div class="column">
         <div class="profile">
             <h1 class="mt-2 title">{{ profile }}</h1>
-            <a href="/feed">Home</a>
+            <button class='button btn'><a href="/feed">Home</a></button>
             {% if tweets %}
             <ul class="posts">
                 {% for post in tweets %}
@@ -33,10 +34,12 @@
                     <footer class='card-footer'>
                         <form action="{%url 'like_post' post.id %}" method="POST">
                             {% csrf_token %}
-                            <p>{{post.like.count}}</p>
                             <input type="hidden" name="next" value="{{ request.path }}">
-                            <button type="submit" value="{{post.id}}" class='button is-small'>Like</button>
+                            <button type="submit" value="{{post.id}}" class='hidden-button is-medium mr-2 ml-1'>
+                                <i class="ml-2 fas fa-heart"></i>
+                            </button>
                         </form>
+                        <p>{{post.like.count}}</p>
                     </footer>
                     {% if request.user == post.user %}
                     <a style="float:right" href="{% url 'delete' post.id %}">Delete</a>
