@@ -10,6 +10,7 @@ git clone https://github.com/akshatmshah/mini-twitter
 
 you can install dependencies with the following
 ```
+cd mini-twitter
 poetry install
 ```
 
