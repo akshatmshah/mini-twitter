@@ -16,7 +16,7 @@ poetry install
 ## how to run the server: 
 
 ```
-cd twitter
+cd mini-twitter
 
 poetry run python3 manage.py makemigrations
 
